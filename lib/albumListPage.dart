@@ -12,10 +12,10 @@ class AlbumListPage extends StatefulWidget {
 class _AlbumListPageState extends State<AlbumListPage> {
   int _currentIndex = 0;
   List<String> imagePath = [
-    'assets/images/NewJeans_NewJeans.png',
-    'assets/images/ShavedFish_JohnLennon.png',
-    'assets/images/StandUp_JethroTull.png',
-    'assets/images/Disintegration_TheCure.png'
+    'assets/albums/NewJeans_NewJeans.png',
+    'assets/albums/ShavedFish_JohnLennon.png',
+    'assets/albums/StandUp_JethroTull.png',
+    'assets/albums/Disintegration_TheCure.png'
   ];
 
   @override
@@ -31,11 +31,11 @@ class _AlbumListPageState extends State<AlbumListPage> {
           Row(
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 10.0), // 왼쪽에만 패딩 추가
+                padding: const EdgeInsets.only(left: 10.0),
                 child: SvgPicture.asset(
-                  'assets/logo.svg', // 로고 이미지 경로
-                  width: 50, // 로고의 너비
-                  height: 50, // 로고의 높이
+                  'assets/logo.svg', 
+                  width: 50,
+                  height: 50,
                 ),
               ),
             ],
@@ -51,7 +51,7 @@ class _AlbumListPageState extends State<AlbumListPage> {
                   scrollDirection: Axis.horizontal,
                   onIndexChanged: (index) {
                     setState(() {
-                      _currentIndex = index; // Swiper의 인덱스 변경
+                      _currentIndex = index;
                     });
                   },
                   itemBuilder: (context, index) => Container(
@@ -68,7 +68,7 @@ class _AlbumListPageState extends State<AlbumListPage> {
                           color: Colors.grey.withOpacity(0.4),
                           spreadRadius: 3,
                           blurRadius: 10,
-                          offset: Offset(3, 0),
+                          offset: const Offset(3, 0),
                         ),
                       ],
                     ),
@@ -80,11 +80,11 @@ class _AlbumListPageState extends State<AlbumListPage> {
                 Column(
                   children: [
                     Text(
-                      imagePath[_currentIndex].split('/').last.split('_')[0], // 앨범명
+                      imagePath[_currentIndex].split('/').last.split('_')[0],
                       style: const TextStyle(fontSize: 17, fontFamily: 'Pixeled'),
                     ),
                     Text(
-                      imagePath[_currentIndex].split('_')[1].split('.').first, // 가수명
+                      imagePath[_currentIndex].split('_')[1].split('.').first,
                       style: const TextStyle(fontSize: 10, fontFamily: 'Pixeled'),
                     ),
                   ],

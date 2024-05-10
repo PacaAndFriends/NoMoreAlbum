@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:nomorealbum/widgets/poca_list.dart';
@@ -19,17 +20,23 @@ class PocaListScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Image.asset("assets/icons/Pointer_Left.png", width: 30),
+                    Row(
+                      children: [
+                        Image.asset("assets/icons/Pointer_Left.png", width: 30),
+                        const SizedBox(width: 80),
+                      ],
+                    ),
                     const Text(
                       "My POCA",
                       style: TextStyle(fontFamily: "Pixeled", fontSize: 12),
                     ),
-                    Row(
+                    const SizedBox(width: 1),
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Image.asset("assets/icons/coin.png", width: 16),
                         const Text(
-                          "100",
+                          "100,000",
                           style: TextStyle(fontFamily: "Pixeled", fontSize: 10),
                         ),
                       ],
@@ -139,24 +146,69 @@ void _showConfirmPopup(BuildContext context) {
                       const SizedBox(
                         width: 14,
                       ),
-                      Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          Image.asset("assets/images/input_button_confirm.png"),
-                          const Text(
-                            "YES",
-                            style: TextStyle(
-                                fontFamily: "Galmuri11",
-                                fontSize: 14,
-                                fontWeight: FontWeight.w700),
-                          ),
-                        ],
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                          _showGetPocaPopup(context);
+                        },
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Image.asset(
+                                "assets/images/input_button_confirm.png"),
+                            const Text(
+                              "YES",
+                              style: TextStyle(
+                                  fontFamily: "Galmuri11",
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w700),
+                            ),
+                          ],
+                        ),
                       )
                     ],
                   )
                 ],
               ),
             )
+          ],
+        ),
+      );
+    },
+  );
+}
+
+void _showGetPocaPopup(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return Dialog(
+        backgroundColor: Colors.transparent,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                Image.asset("assets/images/input_button_delivery.png"),
+                const Text(
+                  "하니 포카 획득!",
+                  style: TextStyle(
+                      fontFamily: "Galmuri",
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 42,
+            ),
+            Image.asset(
+              "assets/images/14.png",
+              fit: BoxFit.contain,
+              width: 280,
+              height: 430,
+            ),
           ],
         ),
       );

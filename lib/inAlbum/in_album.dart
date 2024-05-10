@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:nomorealbum/screens/ticket_buy_view.dart';
 import 'package:nomorealbum/screens/poca_list_screen.dart';
 
 class inalbumpage extends StatelessWidget {
@@ -260,25 +261,32 @@ class menus extends StatelessWidget {
         const SizedBox(
           height: 10,
         ),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Image.asset(
-              'assets/images/shop_icon.png',
-              height: iconheight,
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            Text(
-              'Shop',
-              style: TextStyle(
-                fontFamily: 'Pixeled',
-                fontSize: fontsize,
-                decoration: TextDecoration.underline,
+        GestureDetector(
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return const TicketBuyView();
+            }));
+          },
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Image.asset(
+                'assets/images/shop_icon.png',
+                height: iconheight,
               ),
-            ),
-          ],
+              const SizedBox(
+                width: 10,
+              ),
+              Text(
+                'Shop',
+                style: TextStyle(
+                  fontFamily: 'Pixeled',
+                  fontSize: fontsize,
+                  decoration: TextDecoration.underline,
+                ),
+              ),
+            ],
+          ),
         ),
         const SizedBox(
           height: 10,

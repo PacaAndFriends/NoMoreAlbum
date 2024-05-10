@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nomorealbum/albumList.dart';
-import 'package:nomorealbum/inAlbum/in_album.dart';
-import 'package:nomorealbum/screens/poca_list_screen.dart';
+import 'package:nomorealbum/screens/album_list_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,9 +11,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: inalbumpage(),
+    return const MaterialApp(
+      title: "no more album",
+      home: AlbumListPage(),
     );
   }
 }

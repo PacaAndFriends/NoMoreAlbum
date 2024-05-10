@@ -8,6 +8,7 @@ class PocaListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xffF5F5F5),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Column(

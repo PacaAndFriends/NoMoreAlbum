@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:nomorealbum/screens/poca_list_screen.dart';
 
 class inalbumpage extends StatelessWidget {
   const inalbumpage({super.key});
@@ -11,7 +13,7 @@ class inalbumpage extends StatelessWidget {
         elevation: 0,
         toolbarHeight: 0,
       ),
-      body: Stack(
+      body: const Stack(
         children: [
           Column(
             children: [
@@ -36,18 +38,31 @@ class music_playing extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 30,
-      padding: EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Image.asset('assets/images/pointer_left.png', width: 15,),
+          GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Image.asset(
+              'assets/images/pointer_left.png',
+              width: 15,
+            ),
+          ),
           Expanded(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset('assets/images/music_icon.png', width: 12,),
-                SizedBox(width: 10,),
-                Text(
+                Image.asset(
+                  'assets/images/music_icon.png',
+                  width: 12,
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                const Text(
                   'New Jeans - Attention',
                   style: TextStyle(
                     fontFamily: 'Pixeled',
@@ -58,7 +73,9 @@ class music_playing extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(width: 20,),
+          const SizedBox(
+            width: 20,
+          ),
         ],
       ),
     );
@@ -94,17 +111,19 @@ class _music_playing_lyric_state extends State<music_playing_lyric> {
         children: [
           Text(
             currentLyric,
-            style: TextStyle(
+            style: const TextStyle(
               fontFamily: 'Pixeled',
               fontSize: 8,
               color: Color(0xFF939393),
             ),
             textAlign: TextAlign.center,
           ),
-          SizedBox(height: 7,),
+          const SizedBox(
+            height: 7,
+          ),
           Text(
             nextLyric,
-            style: TextStyle(
+            style: const TextStyle(
               fontFamily: 'Pixeled',
               fontSize: 8,
             ),
@@ -123,10 +142,13 @@ class prompt_container extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 280,
-      margin: EdgeInsets.symmetric(horizontal: 20),
-      padding: EdgeInsets.all(20),
+      margin: const EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.black, width: 3,),
+        border: Border.all(
+          color: Colors.black,
+          width: 3,
+        ),
         borderRadius: BorderRadius.circular(30),
       ),
       child: playlist(),
@@ -143,22 +165,27 @@ class menus_and_coins extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: 35, left: 20, right: 20),
+      padding: const EdgeInsets.only(top: 35, left: 20, right: 20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          menus(),
+          const menus(),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.asset('assets/images/coin_icon.png', height: this.iconheight,),
-              SizedBox(width: 10,),
+              Image.asset(
+                'assets/images/coin_icon.png',
+                height: iconheight,
+              ),
+              const SizedBox(
+                width: 10,
+              ),
               Text(
                 '100',
                 style: TextStyle(
                   fontFamily: 'Pixeled',
-                  fontSize: this.fontsize,
+                  fontSize: fontsize,
                 ),
               ),
             ],
@@ -183,77 +210,117 @@ class menus extends StatelessWidget {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset('assets/images/playlist_icon.png', height: this.iconheight,),
-            SizedBox(width: 10,),
+            Image.asset(
+              'assets/images/playlist_icon.png',
+              height: iconheight,
+            ),
+            const SizedBox(
+              width: 10,
+            ),
             Text(
               'Playlist',
               style: TextStyle(
                 fontFamily: 'Pixeled',
-                fontSize: this.fontsize,
+                fontSize: fontsize,
                 decoration: TextDecoration.underline,
               ),
             ),
           ],
         ),
-        SizedBox(height: 10,),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Image.asset('assets/images/pocabook_icon.png', height: this.iconheight,),
-            SizedBox(width: 10,),
-            Text(
-              'Photo Card Book',
-              style: TextStyle(
-                fontFamily: 'Pixeled',
-                fontSize: this.fontsize,
-                decoration: TextDecoration.underline,
-              ),
-            ),
-          ],
+        const SizedBox(
+          height: 10,
         ),
-        SizedBox(height: 10,),
+        GestureDetector(
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return const PocaListScreen();
+            }));
+          },
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Image.asset(
+                'assets/images/pocabook_icon.png',
+                height: iconheight,
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              Text(
+                'Photo Card Book',
+                style: TextStyle(
+                  fontFamily: 'Pixeled',
+                  fontSize: fontsize,
+                  decoration: TextDecoration.underline,
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset('assets/images/shop_icon.png', height: this.iconheight,),
-            SizedBox(width: 10,),
+            Image.asset(
+              'assets/images/shop_icon.png',
+              height: iconheight,
+            ),
+            const SizedBox(
+              width: 10,
+            ),
             Text(
               'Shop',
               style: TextStyle(
                 fontFamily: 'Pixeled',
-                fontSize: this.fontsize,
+                fontSize: fontsize,
                 decoration: TextDecoration.underline,
               ),
             ),
           ],
         ),
-        SizedBox(height: 10,),
+        const SizedBox(
+          height: 10,
+        ),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset('assets/images/inventory_icon.png', height: this.iconheight,),
-            SizedBox(width: 10,),
+            Image.asset(
+              'assets/images/inventory_icon.png',
+              height: iconheight,
+            ),
+            const SizedBox(
+              width: 10,
+            ),
             Text(
               'Inventory',
               style: TextStyle(
                 fontFamily: 'Pixeled',
-                fontSize: this.fontsize,
+                fontSize: fontsize,
                 decoration: TextDecoration.underline,
               ),
             ),
           ],
         ),
-        SizedBox(height: 10,),
+        const SizedBox(
+          height: 10,
+        ),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset('assets/images/lang_icon.png', height: this.iconheight,),
-            SizedBox(width: 10,),
+            Image.asset(
+              'assets/images/lang_icon.png',
+              height: iconheight,
+            ),
+            const SizedBox(
+              width: 10,
+            ),
             Text(
               'Lang',
               style: TextStyle(
                 fontFamily: 'Pixeled',
-                fontSize: this.fontsize,
+                fontSize: fontsize,
                 decoration: TextDecoration.underline,
               ),
             ),
@@ -318,15 +385,15 @@ class playlist extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          playlist_header(),
+          const playlist_header(),
           Expanded(
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+              padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
               // height: double.infinity,
               child: ListView.builder(
                 shrinkWrap: true,
@@ -334,25 +401,27 @@ class playlist extends StatelessWidget {
                 itemBuilder: (context, index) {
                   String key = track.keys.elementAt(index);
                   return Container(
-                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                    decoration: BoxDecoration(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 10),
+                    decoration: const BoxDecoration(
                       border: Border(
-                          bottom: BorderSide(
-                            color: Colors.black,
-                            width: 2,
-                          ),
+                        bottom: BorderSide(
+                          color: Colors.black,
+                          width: 2,
+                        ),
                       ),
                     ),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween, // 요소들을 양쪽 끝으로 정렬
+                      mainAxisAlignment:
+                          MainAxisAlignment.spaceBetween, // 요소들을 양쪽 끝으로 정렬
                       children: <Widget>[
                         Row(
                           children: [
                             Container(
                               child: Text(
-                                '[${key}]',
+                                '[$key]',
                                 style: TextStyle(
-                                  fontSize: this.bodyfontsize,
+                                  fontSize: bodyfontsize,
                                   fontFamily: 'Pixeled',
                                 ),
                               ),
@@ -362,7 +431,7 @@ class playlist extends StatelessWidget {
                               child: Text(
                                 "${track[key]}",
                                 style: TextStyle(
-                                  fontSize: this.bodyfontsize,
+                                  fontSize: bodyfontsize,
                                   fontFamily: 'Pixeled',
                                 ),
                               ),
@@ -372,7 +441,7 @@ class playlist extends StatelessWidget {
                         Image.asset(
                           'assets/images/musicplay_icon.png',
                           height: 17,
-                        )// progress
+                        ) // progress
                       ],
                     ),
                   );
@@ -394,12 +463,9 @@ class playlist_header extends StatelessWidget {
     return Container(
       height: 40,
       alignment: Alignment.centerLeft,
-      child: Text(
+      child: const Text(
         '~Playlist~',
-        style: TextStyle(
-            fontFamily: 'Pixeled',
-            fontSize: 14
-        ),
+        style: TextStyle(fontFamily: 'Pixeled', fontSize: 14),
       ),
     );
   }

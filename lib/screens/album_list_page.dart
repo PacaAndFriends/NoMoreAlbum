@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:nomorealbum/inAlbum/in_album.dart';
 
 class AlbumListPage extends StatefulWidget {
   const AlbumListPage({super.key});
@@ -73,7 +74,7 @@ class _AlbumListPageState extends State<AlbumListPage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => SecondScreen()),
+                                builder: (context) => const inalbumpage()),
                           );
                         },
                         child: Container(

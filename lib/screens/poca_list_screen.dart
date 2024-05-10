@@ -36,11 +36,17 @@ class _PocaListScreenState extends State<PocaListScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      children: [
-                        Image.asset("assets/icons/Pointer_Left.png", width: 30),
-                        const SizedBox(width: 80),
-                      ],
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Row(
+                        children: [
+                          Image.asset("assets/icons/Pointer_Left.png",
+                              width: 30),
+                          const SizedBox(width: 80),
+                        ],
+                      ),
                     ),
                     const Text(
                       "My POCA",
@@ -91,7 +97,7 @@ class _PocaListScreenState extends State<PocaListScreen> {
               const SizedBox(
                 height: 26,
               ),
-              PoCaList(),
+              const PoCaList(),
             ],
           ),
         ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:nomorealbum/screens/album_list_page.dart';
-import 'package:nomorealbum/screens/poca_list_screen.dart';
 
 void main() {
   runApp(const MyApp());

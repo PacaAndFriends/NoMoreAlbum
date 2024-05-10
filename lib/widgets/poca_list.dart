@@ -32,15 +32,58 @@ class PoCaList extends StatelessWidget {
           mainAxisSpacing: 16.0,
         ),
         itemBuilder: (BuildContext context, int index) {
-          return ClipRRect(
-            borderRadius: BorderRadius.circular(5.0),
-            child: Image.asset(
-              images[index],
-              fit: BoxFit.cover,
+          return GestureDetector(
+            onTap: () {
+              _showImagePopup(context, images[index]);
+            },
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(5.0),
+              child: Image.asset(
+                images[index],
+                fit: BoxFit.cover,
+              ),
             ),
           );
         },
       ),
     );
   }
+}
+
+void _showImagePopup(BuildContext context, String imagePath) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return Dialog(
+        backgroundColor: Colors.transparent,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Image.asset(
+              imagePath,
+              fit: BoxFit.contain,
+              width: 280,
+              height: 430,
+            ),
+            const SizedBox(
+              height: 42,
+            ),
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                Image.asset("assets/images/input_button_delivery.png"),
+                const Text(
+                  "배송 입력",
+                  style: TextStyle(
+                      fontFamily: "Galmuri",
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700),
+                ),
+              ],
+            )
+          ],
+        ),
+      );
+    },
+  );
 }

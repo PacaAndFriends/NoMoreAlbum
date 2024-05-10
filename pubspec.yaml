@@ -64,9 +64,10 @@ flutter:
   # fonts:
   #   - family: Galmuri
   #   - fonts:
-  #       - asset: assets/fonts/Galmuri11-Bold.ttf
   #       - asset: assets/fonts/Galmuri11.ttf
   #       - asset: assets/fonts/Galmuri14.ttf
+  #       - asset: assets/fonts/Galmuri11-Bold.ttf
+  #         weight: 700
   #   - family: Pixedled
   #   - fonts: assets/fonts/Pixedled.ttf
   # To add assets to your application, add an assets section, like this:

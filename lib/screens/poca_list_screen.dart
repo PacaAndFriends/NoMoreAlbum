@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:nomorealbum/widgets/poca_list.dart';
 
 class PocaListScreen extends StatelessWidget {
@@ -49,12 +50,17 @@ class PocaListScreen extends StatelessWidget {
                   const SizedBox(
                     height: 14,
                   ),
-                  const Text(
-                    "랜덤 뽑기",
-                    style: TextStyle(
-                        fontFamily: "Galmuri11",
-                        fontSize: 14,
-                        decoration: TextDecoration.underline),
+                  GestureDetector(
+                    onTap: () {
+                      _showConfirmPopup(context);
+                    },
+                    child: const Text(
+                      "랜덤 뽑기",
+                      style: TextStyle(
+                          fontFamily: "Galmuri11",
+                          fontSize: 14,
+                          decoration: TextDecoration.underline),
+                    ),
                   ),
                 ],
               ),
@@ -68,4 +74,92 @@ class PocaListScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+void _showConfirmPopup(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return Dialog(
+        backgroundColor: Colors.transparent,
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Image.asset(
+              "assets/images/input_box_confirm.png",
+              // width: double.infinity,
+            ),
+            Positioned(
+              // bottom: 20,
+              left: 0,
+              right: 0,
+              child: Column(
+                children: [
+                  const Text(
+                    "포토카드를 뽑으시겠습니까?",
+                    style: TextStyle(
+                        fontFamily: "Galmuri11",
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Image.asset(
+                    "assets/icons/coin.png",
+                    width: 50,
+                    height: 50,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const Text(
+                    "10,000",
+                    style: TextStyle(fontFamily: "Pixeled", fontSize: 10),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Image.asset("assets/images/input_button_confirm.png"),
+                          const Text(
+                            "NO",
+                            style: TextStyle(
+                                fontFamily: "Galmuri11",
+                                fontSize: 12,
+                                fontWeight: FontWeight.w700),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        width: 14,
+                      ),
+                      Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Image.asset("assets/images/input_button_confirm.png"),
+                          const Text(
+                            "YES",
+                            style: TextStyle(
+                                fontFamily: "Galmuri11",
+                                fontSize: 14,
+                                fontWeight: FontWeight.w700),
+                          ),
+                        ],
+                      )
+                    ],
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
+      );
+    },
+  );
 }

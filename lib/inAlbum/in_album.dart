@@ -20,17 +20,8 @@ class inalbumpage extends StatelessWidget {
               menus_and_coins(),
             ],
           ),
-          Positioned(
-            bottom: -475, // Adjust this value to position the CD image as desired
-            left: 0,
-            right: 0,
-            child: Image.asset(
-              'assets/images/cd_NewJeans.png',
-              width: MediaQuery.of(context).size.width, // Full width of the screen
-              fit: BoxFit.cover,
-              height: 700,
-            ),
-          ),
+          _character(),
+          _cd(),
         ],
       ),
     );
@@ -119,15 +110,20 @@ class prompt_container extends StatelessWidget {
     return Container(
       height: 300,
       margin: EdgeInsets.symmetric(horizontal: 20),
+      padding: EdgeInsets.all(20),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.black, width: 3,),
         borderRadius: BorderRadius.circular(30),
       ),
+      child: playlist(),
     );
   }
 }
 
 class menus_and_coins extends StatelessWidget {
+  final double fontsize = 11;
+  final double iconheight = 20;
+
   const menus_and_coins({super.key});
 
   @override
@@ -142,13 +138,13 @@ class menus_and_coins extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.asset('assets/images/coin_icon.png', height: 20,),
+              Image.asset('assets/images/coin_icon.png', height: this.iconheight,),
               SizedBox(width: 10,),
               Text(
                 '100',
                 style: TextStyle(
                   fontFamily: 'Pixeled',
-                  fontSize: 12,
+                  fontSize: this.fontsize,
                 ),
               ),
             ],
@@ -160,7 +156,7 @@ class menus_and_coins extends StatelessWidget {
 }
 
 class menus extends StatelessWidget {
-  final double fontsize = 12;
+  final double fontsize = 11;
   final double iconheight = 20;
 
   const menus({super.key});
@@ -250,6 +246,116 @@ class menus extends StatelessWidget {
           ],
         ),
       ],
+    );
+  }
+}
+
+class _cd extends StatelessWidget {
+  const _cd({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      bottom: -475, // Adjust this value to position the CD image as desired
+      left: 0,
+      right: 0,
+      child: Image.asset(
+        'assets/images/cd_NewJeans.png',
+        width: MediaQuery.of(context).size.width, // Full width of the screen
+        fit: BoxFit.cover,
+        height: 700,
+      ),
+    );
+  }
+}
+
+class _character extends StatelessWidget {
+  const _character({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      bottom: 184, // Adjust this value to position the CD image as desired
+      left: 265,
+      right: 0,
+      child: Transform.rotate(
+        angle: 20 * 3.141592653589793238 / 180.0, // -20도를 라디안으로 변환
+        child: Image.asset(
+          'assets/images/rabbit_icon.png',
+          width: MediaQuery.of(context).size.width, // Full width of the screen
+          fit: BoxFit.contain,
+          height: 130,
+        ),
+      ),
+    );
+  }
+}
+
+class playlist extends StatelessWidget {
+  final Map<String, String> track = {
+    '1': 'Attention',
+    '2': 'Hype Boy',
+    '3': 'Cookie',
+    '4': 'Hurt',
+  };
+
+  playlist({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            // color: Colors.blue,
+            height: 40,
+            alignment: Alignment.centerLeft,
+            child: Text(
+              '~Playlist~',
+              style: TextStyle(
+                fontFamily: 'Pixeled',
+                fontSize: 12
+              ),
+            ),
+          ),
+          ListView.builder(
+            shrinkWrap: true,
+            itemCount: track.length,
+            itemBuilder: (context, index) {
+              String key = track.keys.elementAt(index);
+              return Container(
+                padding: EdgeInsets.symmetric(vertical: 7, horizontal: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween, // 요소들을 양쪽 끝으로 정렬
+                  children: <Widget>[
+                    Container( // name
+                      width: 110, // name 고정 너비
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        key,
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontFamily: 'Pixeled',
+                        ),
+                      ),
+                    ), // name// todolist
+                    Text(
+                      "${track[key]}",
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontFamily: 'Pixeled',
+                        color: track[key] == 100 ? Color(0xFFFF5500) : Colors.black,
+                      ),
+                    ), // progress
+                  ],
+                ),
+              );
+            },
+          ),
+        ],
+      ),
     );
   }
 }

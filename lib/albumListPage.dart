@@ -31,7 +31,7 @@ class _AlbumListPageState extends State<AlbumListPage> {
           Row(
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 10.0),
+                padding: const EdgeInsets.only(left: 15.0, top: 5.0),
                 child: SvgPicture.asset(
                   'assets/logo.svg', 
                   width: 50,
@@ -89,7 +89,7 @@ class _AlbumListPageState extends State<AlbumListPage> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 100),
+                const SizedBox(height: 95),
               ],
             ),
           ),

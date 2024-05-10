@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:nomorealbum/screens/ticket_buy_view.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:nomorealbum/screens/poca_list_screen.dart';
+import 'package:nomorealbum/screens/ticket_buy_view.dart';
+import 'package:provider/provider.dart';
+import 'cd_controller.dart';
 
 class inalbumpage extends StatelessWidget {
   const inalbumpage({super.key});
@@ -14,19 +16,22 @@ class inalbumpage extends StatelessWidget {
         elevation: 0,
         toolbarHeight: 0,
       ),
-      body: const Stack(
-        children: [
-          Column(
-            children: [
-              music_playing(),
-              music_playing_lyric(),
-              prompt_container(),
-              menus_and_coins(),
-            ],
-          ),
-          _character(),
-          _cd(),
-        ],
+      body: ChangeNotifierProvider(
+        create: (context) => CDController(),
+        child: Stack(
+          children: [
+            Column(
+              children: [
+                music_playing(),
+                music_playing_lyric(),
+                prompt_container(),
+                menus_and_coins(),
+              ],
+            ),
+            _character(),
+            CD(),
+          ],
+        ),
       ),
     );
   }
@@ -339,8 +344,8 @@ class menus extends StatelessWidget {
   }
 }
 
-class _cd extends StatelessWidget {
-  const _cd({super.key});
+class cd extends StatelessWidget {
+  const cd({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -380,7 +385,14 @@ class _character extends StatelessWidget {
   }
 }
 
-class playlist extends StatelessWidget {
+class playlist extends StatefulWidget {
+  playlist({super.key});
+
+  @override
+  _playlistState createState() => _playlistState();
+}
+
+class _playlistState extends State<playlist> {
   final Map<String, String> track = {
     '1': 'Attention',
     '2': 'Hype Boy',
@@ -388,8 +400,23 @@ class playlist extends StatelessWidget {
     '4': 'Hurt',
   };
   final double bodyfontsize = 9;
+  final AudioPlayer player = AudioPlayer();
 
-  playlist({super.key});
+  @override
+  void dispose() {
+    player.dispose(); // 리소스 해제
+    super.dispose();
+  }
+
+  Future<void> playTrack(String trackName) async {
+    try {
+      await player.setAsset('assets/audios/NewJeans_Attention.mp3');
+      player.play();
+      Provider.of<CDController>(context, listen: false).play();
+    } catch (e) {
+      print("Error playing $trackName: $e");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -401,17 +428,15 @@ class playlist extends StatelessWidget {
           const playlist_header(),
           Expanded(
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-              // height: double.infinity,
+              padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
               child: ListView.builder(
                 shrinkWrap: true,
                 itemCount: track.length,
                 itemBuilder: (context, index) {
                   String key = track.keys.elementAt(index);
                   return Container(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 10),
-                    decoration: const BoxDecoration(
+                    padding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                    decoration: BoxDecoration(
                       border: Border(
                         bottom: BorderSide(
                           color: Colors.black,
@@ -420,8 +445,7 @@ class playlist extends StatelessWidget {
                       ),
                     ),
                     child: Row(
-                      mainAxisAlignment:
-                          MainAxisAlignment.spaceBetween, // 요소들을 양쪽 끝으로 정렬
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Row(
                           children: [
@@ -446,10 +470,12 @@ class playlist extends StatelessWidget {
                             ),
                           ],
                         ),
-                        Image.asset(
-                          'assets/images/musicplay_icon.png',
-                          height: 17,
-                        ) // progress
+                        IconButton(
+                          icon: Icon(Icons.play_arrow),
+                          onPressed: () => {
+                            playTrack('Newjeans_Attention')
+                          },
+                        ),
                       ],
                     ),
                   );
@@ -476,5 +502,64 @@ class playlist_header extends StatelessWidget {
         style: TextStyle(fontFamily: 'Pixeled', fontSize: 14),
       ),
     );
+  }
+}
+
+class CD extends StatefulWidget {
+  const CD({Key? key}) : super(key: key);
+
+  @override
+  _CDState createState() => _CDState();
+}
+
+class _CDState extends State<CD> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(seconds: 5), // 한 바퀴 도는 데 필요한 시간
+      vsync: this,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final cdController = Provider.of<CDController>(context);
+
+    // 음악 재생 상태에 따라 애니메이션 시작 또는 정지
+    if (cdController.isPlaying) {
+      _controller.repeat();  // 무한 반복
+    } else {
+      _controller.stop();  // 정지
+    }
+
+    return Positioned(
+      bottom: cdController.isPlaying ? -320 : -485, // Adjust this value to position the CD image as desired
+      left: 0,
+      right: 0,
+      child: AnimatedBuilder(
+        animation: _controller,
+        builder: (_, child) {
+          return Transform.rotate(
+            angle: _controller.value * 2 * 3.141592653589793,  // 2파이 = 360도
+            child: child,
+          );
+        },
+        child: Image.asset(
+          'assets/images/cd_NewJeans.png',
+          width: MediaQuery.of(context).size.width, // Full width of the screen
+          fit: cdController.isPlaying ? BoxFit.contain : BoxFit.cover,
+          height: 700,
+        ),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 }

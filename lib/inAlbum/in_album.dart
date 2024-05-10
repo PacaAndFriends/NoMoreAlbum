@@ -65,13 +65,26 @@ class music_playing extends StatelessWidget {
   }
 }
 
-class music_playing_lyric extends StatelessWidget {
+class music_playing_lyric extends StatefulWidget {
   const music_playing_lyric({super.key});
+
+  @override
+  _music_playing_lyric_state createState() => _music_playing_lyric_state();
+}
+
+class _music_playing_lyric_state extends State<music_playing_lyric> {
+  String currentLyric = 'Drop the, drop the question';
+  String nextLyric = '(drop it) Want attention!';
+
+  void updateLyric(String newLyric) {
+    setState(() {
+      currentLyric = newLyric;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      // color: Colors.black,
       height: 80,
       width: 220,
       alignment: Alignment.center,
@@ -80,7 +93,7 @@ class music_playing_lyric extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            'Drop the, drop the question',
+            currentLyric,
             style: TextStyle(
               fontFamily: 'Pixeled',
               fontSize: 8,
@@ -90,7 +103,7 @@ class music_playing_lyric extends StatelessWidget {
           ),
           SizedBox(height: 7,),
           Text(
-            '(drop it) Want attention',
+            nextLyric,
             style: TextStyle(
               fontFamily: 'Pixeled',
               fontSize: 8,
@@ -285,7 +298,7 @@ class _character extends StatelessWidget {
           'assets/images/rabbit_icon.png',
           width: MediaQuery.of(context).size.width, // Full width of the screen
           fit: BoxFit.contain,
-          height: 130,
+          height: 120,
         ),
       ),
     );

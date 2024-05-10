@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nomorealbum/albumList.dart';
 import 'package:nomorealbum/inAlbum/in_album.dart';
 
 void main() {

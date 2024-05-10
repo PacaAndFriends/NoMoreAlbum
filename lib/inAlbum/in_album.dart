@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class inalbumpage extends StatelessWidget {
@@ -108,7 +109,7 @@ class prompt_container extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 300,
+      height: 280,
       margin: EdgeInsets.symmetric(horizontal: 20),
       padding: EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -121,7 +122,7 @@ class prompt_container extends StatelessWidget {
 }
 
 class menus_and_coins extends StatelessWidget {
-  final double fontsize = 11;
+  final double fontsize = 12;
   final double iconheight = 20;
 
   const menus_and_coins({super.key});
@@ -129,7 +130,7 @@ class menus_and_coins extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: 20, left: 20, right: 20),
+      padding: EdgeInsets.only(top: 35, left: 20, right: 20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -156,7 +157,7 @@ class menus_and_coins extends StatelessWidget {
 }
 
 class menus extends StatelessWidget {
-  final double fontsize = 11;
+  final double fontsize = 12;
   final double iconheight = 20;
 
   const menus({super.key});
@@ -256,7 +257,7 @@ class _cd extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      bottom: -475, // Adjust this value to position the CD image as desired
+      bottom: -485, // Adjust this value to position the CD image as desired
       left: 0,
       right: 0,
       child: Image.asset(
@@ -275,7 +276,7 @@ class _character extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      bottom: 184, // Adjust this value to position the CD image as desired
+      bottom: 174, // Adjust this value to position the CD image as desired
       left: 265,
       right: 0,
       child: Transform.rotate(
@@ -298,6 +299,7 @@ class playlist extends StatelessWidget {
     '3': 'Cookie',
     '4': 'Hurt',
   };
+  final double bodyfontsize = 9;
 
   playlist({super.key});
 
@@ -308,53 +310,83 @@ class playlist extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            // color: Colors.blue,
-            height: 40,
-            alignment: Alignment.centerLeft,
-            child: Text(
-              '~Playlist~',
-              style: TextStyle(
-                fontFamily: 'Pixeled',
-                fontSize: 12
+          playlist_header(),
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+              // height: double.infinity,
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: track.length,
+                itemBuilder: (context, index) {
+                  String key = track.keys.elementAt(index);
+                  return Container(
+                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                    decoration: BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(
+                            color: Colors.black,
+                            width: 2,
+                          ),
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween, // 요소들을 양쪽 끝으로 정렬
+                      children: <Widget>[
+                        Row(
+                          children: [
+                            Container(
+                              child: Text(
+                                '[${key}]',
+                                style: TextStyle(
+                                  fontSize: this.bodyfontsize,
+                                  fontFamily: 'Pixeled',
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 5),
+                              child: Text(
+                                "${track[key]}",
+                                style: TextStyle(
+                                  fontSize: this.bodyfontsize,
+                                  fontFamily: 'Pixeled',
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Image.asset(
+                          'assets/images/musicplay_icon.png',
+                          height: 17,
+                        )// progress
+                      ],
+                    ),
+                  );
+                },
               ),
             ),
           ),
-          ListView.builder(
-            shrinkWrap: true,
-            itemCount: track.length,
-            itemBuilder: (context, index) {
-              String key = track.keys.elementAt(index);
-              return Container(
-                padding: EdgeInsets.symmetric(vertical: 7, horizontal: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween, // 요소들을 양쪽 끝으로 정렬
-                  children: <Widget>[
-                    Container( // name
-                      width: 110, // name 고정 너비
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        key,
-                        style: TextStyle(
-                          fontSize: 10,
-                          fontFamily: 'Pixeled',
-                        ),
-                      ),
-                    ), // name// todolist
-                    Text(
-                      "${track[key]}",
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontFamily: 'Pixeled',
-                        color: track[key] == 100 ? Color(0xFFFF5500) : Colors.black,
-                      ),
-                    ), // progress
-                  ],
-                ),
-              );
-            },
-          ),
         ],
+      ),
+    );
+  }
+}
+
+class playlist_header extends StatelessWidget {
+  const playlist_header({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 40,
+      alignment: Alignment.centerLeft,
+      child: Text(
+        '~Playlist~',
+        style: TextStyle(
+            fontFamily: 'Pixeled',
+            fontSize: 14
+        ),
       ),
     );
   }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:nomorealbum/albumList.dart';
+import 'package:nomorealbum/inAlbum/in_album.dart';
 import 'package:nomorealbum/screens/poca_list_screen.dart';
 
 void main() {
@@ -11,9 +13,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: "no more album",
-      home: PocaListScreen(),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: inalbumpage(),
     );
   }
 }

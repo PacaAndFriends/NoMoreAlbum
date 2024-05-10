@@ -1,0 +1,100 @@
+import 'package:flutter/material.dart';
+import 'package:card_swiper/card_swiper.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
+class AlbumListPage extends StatefulWidget {
+  const AlbumListPage({super.key});
+
+  @override
+  State<AlbumListPage> createState() => _AlbumListPageState();
+}
+
+class _AlbumListPageState extends State<AlbumListPage> {
+  int _currentIndex = 0;
+  List<String> imagePath = [
+    'assets/images/NewJeans_NewJeans.png',
+    'assets/images/ShavedFish_JohnLennon.png',
+    'assets/images/StandUp_JethroTull.png',
+    'assets/images/Disintegration_TheCure.png'
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        toolbarHeight: 0,
+        backgroundColor: Colors.white,
+      ),
+      body: Column(
+        children: [
+          Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 10.0), // 왼쪽에만 패딩 추가
+                child: SvgPicture.asset(
+                  'assets/logo.svg', // 로고 이미지 경로
+                  width: 50, // 로고의 너비
+                  height: 50, // 로고의 높이
+                ),
+              ),
+            ],
+          ),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Swiper(
+                  itemWidth: 300,
+                  itemHeight: 300,
+                  loop: true,
+                  scrollDirection: Axis.horizontal,
+                  onIndexChanged: (index) {
+                    setState(() {
+                      _currentIndex = index; // Swiper의 인덱스 변경
+                    });
+                  },
+                  itemBuilder: (context, index) => Container(
+                    width: 300,
+                    height: 300,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(imagePath[index]),
+                        fit: BoxFit.cover,
+                      ),
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.4),
+                          spreadRadius: 3,
+                          blurRadius: 10,
+                          offset: Offset(3, 0),
+                        ),
+                      ],
+                    ),
+                  ),
+                  layout: SwiperLayout.STACK,
+                  itemCount: imagePath.length,
+                ),
+                const SizedBox(height: 25),
+                Column(
+                  children: [
+                    Text(
+                      imagePath[_currentIndex].split('/').last.split('_')[0], // 앨범명
+                      style: const TextStyle(fontSize: 17, fontFamily: 'Pixeled'),
+                    ),
+                    Text(
+                      imagePath[_currentIndex].split('_')[1].split('.').first, // 가수명
+                      style: const TextStyle(fontSize: 10, fontFamily: 'Pixeled'),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 100),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

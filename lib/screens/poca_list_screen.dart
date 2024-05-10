@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:nomorealbum/widgets/poca_list.dart';
@@ -20,18 +19,12 @@ class PocaListScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      children: [
-                        Image.asset("assets/icons/Pointer_Left.png", width: 30),
-                        const SizedBox(width: 80),
-                      ],
-                    ),
+                    Image.asset("assets/icons/Pointer_Left.png", width: 30),
                     const Text(
                       "My POCA",
                       style: TextStyle(fontFamily: "Pixeled", fontSize: 12),
                     ),
-                    const SizedBox(width: 1),
-                    Column(
+                    Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Image.asset("assets/icons/coin.png", width: 16),

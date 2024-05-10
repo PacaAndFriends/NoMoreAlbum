@@ -17,6 +17,7 @@ class _AlbumListPageState extends State<AlbumListPage> {
     'assets/albums/StandUp_JethroTull.png',
     'assets/albums/Disintegration_TheCure.png'
   ];
+  List<double> _scales = [1.0, 1.0, 1.0, 1.0]; // 각 이미지의 크기 상태를 저장하는 리스트
 
   @override
   Widget build(BuildContext context) {
@@ -54,23 +55,38 @@ class _AlbumListPageState extends State<AlbumListPage> {
                       _currentIndex = index;
                     });
                   },
-                  itemBuilder: (context, index) => Container(
-                    width: 300,
-                    height: 300,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(imagePath[index]),
-                        fit: BoxFit.cover,
-                      ),
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.4),
-                          spreadRadius: 3,
-                          blurRadius: 10,
-                          offset: const Offset(3, 0),
+                  itemBuilder: (context, index) => GestureDetector(
+                    onTapDown: (_) {
+                      setState(() {
+                        _scales[index] = 0.99;
+                      });
+                    },
+                    onTapUp: (_) {
+                      setState(() {
+                        _scales[index] = 1.0;
+                      });
+                    },
+                    child: Transform.scale(
+                      scale: _scales[index],
+                      child: Container(
+                        width: 300,
+                        height: 300,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(imagePath[index]),
+                            fit: BoxFit.cover,
+                          ),
+                          shape: BoxShape.circle,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.4),
+                              spreadRadius: 3,
+                              blurRadius: 10,
+                              offset: const Offset(3, 0),
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
                   ),
                   layout: SwiperLayout.STACK,

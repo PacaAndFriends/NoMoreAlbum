@@ -18,7 +18,7 @@ class inalbumpage extends StatelessWidget {
       ),
       body: ChangeNotifierProvider(
         create: (context) => CDController(),
-        child: Stack(
+        child: const Stack(
           children: [
             Column(
               children: [
@@ -157,7 +157,7 @@ class prompt_container extends StatelessWidget {
         ),
         borderRadius: BorderRadius.circular(30),
       ),
-      child: playlist(),
+      child: const playlist(),
     );
   }
 }
@@ -386,7 +386,7 @@ class _character extends StatelessWidget {
 }
 
 class playlist extends StatefulWidget {
-  playlist({super.key});
+  const playlist({super.key});
 
   @override
   _playlistState createState() => _playlistState();
@@ -428,15 +428,16 @@ class _playlistState extends State<playlist> {
           const playlist_header(),
           Expanded(
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+              padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
               child: ListView.builder(
                 shrinkWrap: true,
                 itemCount: track.length,
                 itemBuilder: (context, index) {
                   String key = track.keys.elementAt(index);
                   return Container(
-                    padding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-                    decoration: BoxDecoration(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                    decoration: const BoxDecoration(
                       border: Border(
                         bottom: BorderSide(
                           color: Colors.black,
@@ -471,10 +472,8 @@ class _playlistState extends State<playlist> {
                           ],
                         ),
                         IconButton(
-                          icon: Icon(Icons.play_arrow),
-                          onPressed: () => {
-                            playTrack('Newjeans_Attention')
-                          },
+                          icon: const Icon(Icons.play_arrow),
+                          onPressed: () => {playTrack('Newjeans_Attention')},
                         ),
                       ],
                     ),
@@ -530,20 +529,22 @@ class _CDState extends State<CD> with SingleTickerProviderStateMixin {
 
     // 음악 재생 상태에 따라 애니메이션 시작 또는 정지
     if (cdController.isPlaying) {
-      _controller.repeat();  // 무한 반복
+      _controller.repeat(); // 무한 반복
     } else {
-      _controller.stop();  // 정지
+      _controller.stop(); // 정지
     }
 
     return Positioned(
-      bottom: cdController.isPlaying ? -320 : -485, // Adjust this value to position the CD image as desired
+      bottom: cdController.isPlaying
+          ? -320
+          : -485, // Adjust this value to position the CD image as desired
       left: 0,
       right: 0,
       child: AnimatedBuilder(
         animation: _controller,
         builder: (_, child) {
           return Transform.rotate(
-            angle: _controller.value * 2 * 3.141592653589793,  // 2파이 = 360도
+            angle: _controller.value * 2 * 3.141592653589793, // 2파이 = 360도
             child: child,
           );
         },

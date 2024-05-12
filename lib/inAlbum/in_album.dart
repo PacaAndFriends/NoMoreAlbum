@@ -241,6 +241,7 @@ class menus extends StatelessWidget {
             Navigator.push(context, MaterialPageRoute(builder: (context) {
               return const PocaListScreen();
             }));
+
           },
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -344,41 +345,24 @@ class menus extends StatelessWidget {
   }
 }
 
-class cd extends StatelessWidget {
-  const cd({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Positioned(
-      bottom: -485, // Adjust this value to position the CD image as desired
-      left: 0,
-      right: 0,
-      child: Image.asset(
-        'assets/images/cd_NewJeans.png',
-        width: MediaQuery.of(context).size.width, // Full width of the screen
-        fit: BoxFit.cover,
-        height: 700,
-      ),
-    );
-  }
-}
-
 class _character extends StatelessWidget {
   const _character({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final cdController = Provider.of<CDController>(context);
+
     return Positioned(
       bottom: 174, // Adjust this value to position the CD image as desired
       left: 265,
       right: 0,
       child: Transform.rotate(
-        angle: 20 * 3.141592653589793238 / 180.0, // -20도를 라디안으로 변환
+        angle: cdController.isPlaying ? 30 * 3.141592653589793238 / 180.0 : 20 * 3.141592653589793238 / 180.0, // -20도를 라디안으로 변환
         child: Image.asset(
           'assets/images/rabbit_icon.png',
           width: MediaQuery.of(context).size.width, // Full width of the screen
           fit: BoxFit.contain,
-          height: 120,
+          height: cdController.isPlaying ? 120 : 120,
         ),
       ),
     );
@@ -418,8 +402,20 @@ class _playlistState extends State<playlist> {
     }
   }
 
+  Future<void> stopTrack() async {
+    try {
+      await player.setAsset('assets/audios/NewJeans_Attention.mp3');
+      player.stop();
+      Provider.of<CDController>(context, listen: false).play();
+    } catch (e) {
+      print("Error stopping: $e");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final cdController = Provider.of<CDController>(context);
+    
     return SizedBox(
       width: double.infinity,
       child: Column(
@@ -472,8 +468,13 @@ class _playlistState extends State<playlist> {
                           ],
                         ),
                         IconButton(
-                          icon: const Icon(Icons.play_arrow),
-                          onPressed: () => {playTrack('Newjeans_Attention')},
+                          icon: Image.asset(
+                            (cdController.isPlaying && key == '1') ? 'assets/images/musicpause_icon.png' : 'assets/images/musicplay_icon.png',
+                            height: (cdController.isPlaying && key == '1') ? 12 : 18,
+                          ),
+                          onPressed: () => {
+                            cdController.isPlaying ? stopTrack() : playTrack('Newjeans_Attention')
+                          },
                         ),
                       ],
                     ),
@@ -535,16 +536,14 @@ class _CDState extends State<CD> with SingleTickerProviderStateMixin {
     }
 
     return Positioned(
-      bottom: cdController.isPlaying
-          ? -320
-          : -485, // Adjust this value to position the CD image as desired
+      bottom: cdController.isPlaying ? -320 : -485,
       left: 0,
       right: 0,
       child: AnimatedBuilder(
         animation: _controller,
         builder: (_, child) {
           return Transform.rotate(
-            angle: _controller.value * 2 * 3.141592653589793, // 2파이 = 360도
+            angle: cdController.isPlaying ? _controller.value * 2 * 3.141592653589793 : 0,  // 2파이 = 360도
             child: child,
           );
         },

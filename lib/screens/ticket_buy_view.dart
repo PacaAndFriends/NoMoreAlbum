@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -11,10 +12,11 @@ class TicketBuyView extends StatelessWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment: MainAxisAlignment.center,
+            // crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const music_playing(),
-              const SizedBox(height: 100),
+              // const SizedBox(height: 10),
               Center(
                   child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -46,15 +48,19 @@ class music_playing extends StatelessWidget {
       height: 50,
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Image.asset(
-              'assets/images/arrowback.png',
-              width: 15,
+          Container(
+            alignment: Alignment.centerLeft,
+            padding: EdgeInsets.only(left: 10),
+            width: 50,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: Image.asset(
+                'assets/images/arrowback.png',
+              ),
             ),
           ),
           Expanded(
@@ -69,24 +75,31 @@ class music_playing extends StatelessWidget {
                   width: 10,
                 ),
                 const Text(
-                  'New Jeans - Attention',
+                  'NewJeans - Attention',
                   style: TextStyle(
-                    fontFamily: 'Galmuri11',
+                    fontFamily: 'Pixeled',
                     color: Colors.black,
-                    fontSize: 15,
+                    fontSize: 9,
                   ),
                 ),
               ],
             ),
           ),
-          const SizedBox(width: 10),
-          Image.asset('assets/images/coin.png'),
-          const Text(
-            '100',
-            style: TextStyle(
-              fontFamily: 'Galmuri11',
-              color: Colors.black,
-              fontSize: 10,
+          Container(
+            width: 50,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Image.asset('assets/images/coin.png'),
+                const Text(
+                  '100',
+                  style: TextStyle(
+                    fontFamily: 'Pixeled',
+                    color: Colors.black,
+                    fontSize: 8,
+                  ),
+                ),
+              ],
             ),
           )
         ],

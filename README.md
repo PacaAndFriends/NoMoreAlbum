@@ -68,3 +68,7 @@ Dart, Flutter
 </td>
 <tr>
 </table>
+
+### 🎥 시연 영상
+
+https://youtu.be/VexKs1ld88s

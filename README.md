@@ -30,7 +30,7 @@ No More Album은 실물 앨범의 과도한 소비를 막고 올바른 **“1인
 
 <p align="center"> 
     <img src="https://github.com/PacaAndFriends/NoMoreAlbum/assets/68274803/cfd4115e-6dd3-491f-ad2e-2c54f2b9f74d" align="center" width="20%">  
-    <img src="https://github.com/PacaAndFriends/NoMoreAlbum/assets/68274803/b00d38ce-e03f-4ab5-9ace-818f3b89683f" align="center" width="20%"> 
+    <img src="https://github.com/user-attachments/assets/787a08cd-a786-452a-bbd9-b9f4cf21933c" align="center" width="20%"> 
     <img src="https://github.com/PacaAndFriends/NoMoreAlbum/assets/68274803/17c93ef1-3d1d-4798-b2df-8f703aafb5dc" align="center" width="20%"> 
     <img src="https://github.com/PacaAndFriends/NoMoreAlbum/assets/68274803/6ca71d1d-4763-4de4-9c07-385b4cddb81a" align="center" width="20%">
 
